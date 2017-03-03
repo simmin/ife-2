@@ -1,0 +1,143 @@
+.main-container{
+	width: 800px;
+	padding: 30px 50px;
+	margin:0 auto;
+	border:1px solid #ddd;
+}
+.radio-group,.checkbox-group{
+	margin: 10px 0;
+}
+.conclusion ul li{
+	font-size: 14px;
+	line-height: 1.8;
+}
+/* 自定义样式一
+--------------------------------------------------------------------------------------------------*/
+.custom-radio-1, .custom-checkbox-1{
+	position: relative;
+	visibility: hidden;
+}
+.custom-radio-1:before, .custom-checkbox-1:before{
+	content: "";
+	position: absolute;
+	top: 50%;
+	transform:translateY(-50%);
+	border: 1px solid #ddd;
+	visibility: visible;
+}
+.custom-radio-1:before{
+	width: 14px;
+	height: 14px;
+	left: -2px;
+	border-radius: 50%;
+}
+.custom-checkbox-1:before{
+	width: 12px;
+	height: 12px;
+}
+.custom-radio-1:checked:before,.custom-checkbox-1:checked:before{
+	border-color: #D3403D;
+}
+.custom-radio-1:checked:after{
+	content: "";
+	position: absolute;
+	left: 3px;
+	top: 50%;
+	transform:translateY(-50%);
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	visibility: visible;
+	background-color: #D3403D;
+}
+.custom-checkbox-1:checked:after{
+	content: "";
+	width: 5px;
+	height: 3px;
+	position: absolute;
+	left: 4px;
+	top: 4px;
+	border: 2px solid #D3403D;
+	border-right: none;
+	border-top: none;
+	transform: rotate(-50deg);
+	visibility: visible;
+}
+
+/* 自定义样式二
+--------------------------------------------------------------------------------------------------*/
+.custom-radio-2, .custom-checkbox-2{
+	display: none;
+}
+.custom-radio-2 + label, .custom-checkbox-2 + label{
+	padding-left: 25px;
+	position: relative;
+}
+.custom-radio-2 + label:before,.custom-checkbox-2 + label:before{
+	content: "";
+	position: absolute;
+	top: 50%;
+	transform:translateY(-50%);
+	border:1px solid #ddd;
+}
+.custom-radio-2 + label:before{
+	width: 14px;
+	height: 14px;
+	left: 2px;
+	border-radius: 50%;
+}
+.custom-checkbox-2 + label:before{
+	width: 12px;
+	height: 12px;
+	left: 4px;
+}
+.custom-radio-2:checked + label:before,.custom-checkbox-2:checked + label:before{
+	border-color: #D3403D;
+}
+.custom-radio-2:checked + label:after{
+	content: "";
+	position: absolute;
+	left: 7px;
+	top: 50%;
+	transform:translateY(-50%);
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background-color: #D3403D;
+}
+.custom-checkbox-2:checked + label:after{
+	content: "";
+	width: 5px;
+	height: 3px;
+	position: absolute;
+	left: 8px;
+	top: 7px;
+	border: 2px solid #D3403D;
+	border-right: none;
+	border-top: none;
+	transform: rotate(-50deg);
+}
+
+/* 自定义样式三
+--------------------------------------------------------------------------------------------------*/
+.custom-radio-3, .custom-checkbox-3{
+	display: none;
+}
+.custom-radio-3 + label{
+	padding-left: 25px;
+	background: url(btn-bg.png) no-repeat;
+	background-position: 3px 3px;
+}
+.custom-radio-3:checked + label{
+	background-position: 3px -40px;
+}
+
+.custom-checkbox-3 + label{
+	padding-left: 25px;
+	background: url(btn-bg.png) no-repeat;
+	background-position: 3px -18px;
+}
+
+.custom-checkbox-3:checked + label{
+	background-position: 3px -61px;
+}

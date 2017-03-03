@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>自定义radio和checkbox样式</title>
+	<link rel="stylesheet" type="text/css" href="./radio-checkbox.css">
+</head>
+<body>
+	<div class="main-container">
+		<h1>自定义radio和checkbox样式</h1>
+		<hr>
+		<div class="row">
+			<h2>一、默认radio和checkbox样式</h2>
+			<div class="default">
+				
+				<div class="radio-group">
+					<label><input type="radio" name="default-radio" checked="checked"> radio-1</label>
+					<label><input type="radio" name="default-radio"> radio-2</label>
+				</div>
+				<div class="checkbox-group">
+					<label><input type="checkbox" name="default-checkbox" checked="checked"> checkbox-1</label>
+					<label><input type="checkbox" name="default-checkbox"> checkbox-2</label>
+					<label><input type="checkbox" name="default-checkbox"> checkbox-3</label>
+				</div>				
+			</div>
+		</div>
+
+		<div class="row">
+			<h2>二、自定义radio和checkbox样式</h2>
+			<div class="custom-1">
+				<h3>1. 使用伪元素和伪类（1）</h3>
+				<div class="radio-group">
+					<label><input type="radio" name="custom-radio-1" class="custom-radio-1" checked="checked"> radio-1</label>
+					<label><input type="radio" name="custom-radio-1" class="custom-radio-1"> radio-2</label>
+				</div>
+				<div class="checkbox-group">
+					<label><input type="checkbox" name="custom-checkbox-1" class="custom-checkbox-1" checked="checked"> checkbox-1</label>
+					<label><input type="checkbox" name="custom-checkbox-1" class="custom-checkbox-1"> checkbox-2</label>
+					<label><input type="checkbox" name="custom-checkbox-1" class="custom-checkbox-1"> checkbox-3</label>
+				</div>
+			</div>
+			<div class="custom-2">
+				<h3>2. 使用伪元素和伪类（2）</h3>
+				<div class="radio-group">
+					<input type="radio" name="custom-radio-2" id="radio-2-1" class="custom-radio-2" checked="checked"> <label for="radio-2-1">radio-1</label>
+					<input type="radio" name="custom-radio-2" id="radio-2-2" class="custom-radio-2"> <label for="radio-2-2">radio-2</label>
+				</div>
+				<div class="checkbox-group">
+					<input type="checkbox" name="custom-checkbox-2" id="checkbox-2-1" class="custom-checkbox-2" checked="checked"> <label for="checkbox-2-1">checkbox-1</label>
+					<input type="checkbox" name="custom-checkbox-2" id="checkbox-2-2" class="custom-checkbox-2"> <label for="checkbox-2-2">checkbox-2</label>
+					<input type="checkbox" name="custom-checkbox-2" id="checkbox-2-3" class="custom-checkbox-2"> <label for="checkbox-2-3">checkbox-3</label>
+				</div>
+			</div>
+			<div class="custom-3">
+				<h3>3. 使用背景图和伪类</h3>
+				<div class="radio-group">
+					<input type="radio" name="custom-radio-3" id="radio-3-1" class="custom-radio-3" checked="checked"> <label for="radio-3-1">radio-1</label>
+					<input type="radio" name="custom-radio-3" id="radio-3-2" class="custom-radio-3"> <label for="radio-3-2">radio-2</label>
+				</div>
+				<div class="checkbox-group">
+					<input type="checkbox" name="custom-checkbox-3" id="checkbox-3-1" class="custom-checkbox-3" checked="checked"> <label for="checkbox-3-1">checkbox-1</label>
+					<input type="checkbox" name="custom-checkbox-3" id="checkbox-3-2" class="custom-checkbox-3"> <label for="checkbox-3-2">checkbox-2</label>
+					<input type="checkbox" name="custom-checkbox-3" id="checkbox-3-3" class="custom-checkbox-3"> <label for="checkbox-3-3">checkbox-3</label>
+				</div>
+			</div>
+			<div class="conclusion">
+				<h3>4. 总结</h3>
+				<div class="con-custom-1">
+					<h5>(1)自定义样式一</h5>
+					<p><small>原理：</small></p>
+					<ul>
+						<li>label标签包裹input</li>
+						<li>input标签使用visibility属性控制不可见</li>
+						<li>对input标签使用伪元素before，after以及伪类checked来控制选中和未选中效果（伪元素使用visibility属性控制可见）</li>
+					</ul>
+					<p><small>优点：</small></p>
+					<ul>
+						<li>无需创建图片，无需请求图片</li>
+						<li>方便对选中样式（如border颜色，背景色）的更改</li>
+					</ul>
+					<p><small>缺点：</small></p>
+					<ul>
+						<li>伪元素的定位并不精确，伪元素的相对位置不好把握</li>
+						<li>样式没有图片来的丰富</li>
+						<li>代码量多</li>
+						<li>大小调整会“牵一发而动全身”</li>
+					</ul>
+				</div>
+				<div class="con-custom-2">
+					<h5>(2)自定义样式二</h5>
+					<p><small>原理：</small></p>
+					<ul>
+						<li>label标签放置在input标签后</li>
+						<li>input标签不可见</li>
+						<li>对input标签使用伪类checked判断是否选中，使用相邻兄弟选择器（+）以及伪元素before，after来对紧随input标签后label标签进行样式更改</li>
+					</ul>
+					<p><small>优缺点同(1)</small></p>
+				</div>
+				<div class="con-custom-3">
+					<h5>(3)自定义样式三</h5>
+					<p><small>原理：</small></p>
+					<ul>
+						<li>label标签放置在input标签后</li>
+						<li>input标签不可见</li>
+						<li>对input标签使用伪类checked判断是否选中，使用相邻兄弟选择器（+）以及background-position来对紧随input标签后label标签进行样式更改</li>
+						<li>为了保留label的作用，这里我将雪碧图中的元素进行了垂直排列</li>
+					</ul>
+					<p><small>优点：</small></p>
+					<ul>
+						<li>代码量少</li>
+						<li>图片样式更加丰富</li>
+					</ul>
+					<p><small>缺点：</small></p>
+					<ul>
+						<li>对选中样式（如border颜色，背景色）的更改，需要重新绘图，比较麻烦</li>
+						<li>对雪碧图要求元素垂直排列，而不能有水平排列</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</body>
+</html>
