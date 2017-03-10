@@ -1,0 +1,59 @@
+.main-container{
+	width: 800px;
+	padding: 30px 50px;
+	margin:0 auto;
+	border:1px solid #ddd;
+}
+#colorSelector{
+	display: flex;
+}
+
+#colorSelector .colorContent{
+	height: 100%;
+	border:1px solid #ddd;
+	box-sizing: border-box;
+	position: relative;
+	overflow: hidden;
+}
+#colorSelector .colorBar{
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+}
+#colorSelector .colorBox{
+	height: 100%;
+	border: 1px solid #ddd;
+	padding: 5%;
+	box-sizing: border-box;
+}
+#colorSelector .colorBlock{
+	box-sizing: border-box;
+}
+
+
+#colorSelector .rgbBlock{
+	padding: 20px 0;
+	border-bottom: 1px solid #D8D8D8;
+}
+#colorSelector .rgb-item{
+	width: 100%;
+	margin: 10px 0;
+}
+#colorSelector .rgbBlock span{
+	display: inline-block;
+	width: 20%;
+	vertical-align: middle;
+}
+#colorSelector .rgbBlock input{
+	width: 80%;
+	height: 30px;
+	padding: 1px 5px;
+	border: 1px solid #D8D8D8;
+	border-radius: 2px;
+	box-sizing: border-box;
+	outline: none;
+}
+#colorSelector .rgbBlock input:focus{
+	border:none;
+	box-shadow: 0 0 3px #aaa;
+}
