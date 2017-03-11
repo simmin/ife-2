@@ -3,7 +3,7 @@ var colorSelector = function (config){
 	this.width = '780' || config.width; // 色彩选择器的整体高度
 	// this.height = '420' || config.height; // 色彩选择器的整体高度
 	// this.gap = '30' || config.gap; // 选择区、选择条、数值框之间的间隔
-	this.barBg = ['rgb(255,0,0)','rgb(255,255,0)','rgb(0,255,0)','rgb(0,255,255)','rgb(0,0,255)','rgb(255,0,255)','rgb(255,0,0)'] || config.barBg; //设置选择条的背景，数组格式
+	this.barBg = ['hsl(0,100%,50%)','hsl(60,100%,50%)','hsl(120,100%,50%)','hsl(180,100%,50%)','hsl(240,100%,50%)','hsl(300,100%,50%)','hsl(360,100%,50%)'] || config.barBg; //设置选择条的背景，数组格式
 	this.barDotPos = '210' || config.barDotPos; //设置选择条上选择区域的初始位置
 
 	this._init();
@@ -23,6 +23,8 @@ colorSelector.prototype = {
 		this.calColor(0,0); //初始状态
 		this.chooseDot();
 
+		this.setInput();
+
 		this.changValue();
 	},
 	createElements:function(nodeName,classValue){
@@ -41,13 +43,26 @@ colorSelector.prototype = {
 		var colorBox = this.createElements('div','colorBox');
 		var colorBlock = this.createElements('div','colorBlock');
 		var rgbBlock = this.createElements('div','rgbBlock');
-		
+		var hslBlock = this.createElements('div','hslBlock');
 
 		colorContent.appendChild(colorConDot);
 		this.element.appendChild(colorContent);
 		colorBar.appendChild(colorBarDot);
 		this.element.appendChild(colorBar);
 		var rgbArr = ['R',"G","B"];
+		var hslArr = ['H',"S","L"];
+		for(var i = 0; i < 3; i++){
+			var divBlock = this.createElements('div','hsl-item');
+			var spanBlock = this.createElements('span');
+			spanBlock.innerText = hslArr[i];
+			var inputBlock = this.createElements('input');
+			inputBlock.setAttribute('type','number');
+			// inputBlock.setAttribute('min','0');
+			// inputBlock.setAttribute('max','255');
+			divBlock.appendChild(spanBlock);
+			divBlock.appendChild(inputBlock);
+			hslBlock.appendChild(divBlock);
+		}
 		for(var i = 0; i < 3; i++){
 			var divBlock = this.createElements('div','rgb-item');
 			var spanBlock = this.createElements('span');
@@ -61,6 +76,7 @@ colorSelector.prototype = {
 			rgbBlock.appendChild(divBlock);
 		}
 		colorBox.appendChild(colorBlock);
+		colorBox.appendChild(hslBlock);
 		colorBox.appendChild(rgbBlock);
 		this.element.appendChild(colorBox);
 		//colorContent 的样式
@@ -121,8 +137,8 @@ colorSelector.prototype = {
 				}else{
 					conDotLeft = parseInt(conDotLeft);
 				}
-				// console.log(conDotLeft.replace('px',''));
 				that.calColor(conDotLeft,conDotTop);
+				that.setInput();
 
 			}
 		});
@@ -130,6 +146,7 @@ colorSelector.prototype = {
 			if(e.target.className == 'colorContent' && e.button == 0){
 				that.setDot('colorConDot',e.offsetY,e.offsetX);
 				that.calColor(e.offsetY,e.offsetX);
+				that.setInput();
 			}
 		})
 
@@ -144,27 +161,13 @@ colorSelector.prototype = {
 	},
 	calColor:function(offsetY,offsetX){
 		if(typeof(offsetX) != 'undefined'){
-			var ofh = this.height * Math.sqrt(2) / 2;
-			var fi = Math.floor((Math.sqrt(2)*(offsetX + offsetY) /2) / ofh);
-			var rh = (Math.sqrt(2)*(offsetX + offsetY) /2) % ofh;
+			var totalHeight = this.height * Math.sqrt(2);
+			var curHeight = Math.sqrt(2)*(offsetX + offsetY) /2;
 
-			this.curColor = [];
-			var rgbInput = document.getElementsByClassName('rgbBlock')[0].getElementsByTagName('input');
-			if(fi == 0){
-				for(var i = 0; i < 3; i++){
-					var theValue = parseInt(255-((255-this.curRgb[i])*rh / ofh));
-					this.curColor.push(theValue);
-					rgbInput[i].value = theValue;
-				}
-			}
-			if(fi == 1){
-				for(var i = 0; i < 3; i++){
-					var theValue = parseInt(this.curRgb[i]-(this.curRgb[i]*rh / ofh));
-					this.curColor.push(theValue);
-					rgbInput[i].value = theValue;
-				}
-			}
-			document.getElementsByClassName('colorBlock')[0].style.background = "rgb("+this.curColor.join(",")+")";
+			var hsl_3 = parseInt(100 -(curHeight*100/totalHeight));
+			this.curHsl[2] = hsl_3;
+			var curHslStr = 'hsl('+this.curHsl[0]+','+this.curHsl[1]+'%,'+hsl_3+"%)";
+			document.getElementsByClassName('colorBlock')[0].style.background = curHslStr;
 
 
 		}else{
@@ -172,58 +175,63 @@ colorSelector.prototype = {
 			var fieldIndex = Math.floor(offsetY / oneFieldHeight);
 			var remainHeight = offsetY % oneFieldHeight;
 	
-			this.curRgb = [];
+			this.curHsl = [];
 			if(fieldIndex >= 0 && fieldIndex <= this.barBg.length-1){
-				var startRgb = this.barBg[fieldIndex].replace('rgb(','').replace(')','').split(',');
-				var endRgb = this.barBg[fieldIndex + 1].replace('rgb(','').replace(')','').split(',');
+				var startHsl = this.barBg[fieldIndex].replace('hsl(','').replace(')','').split(',');
+				var endHsl = this.barBg[fieldIndex + 1].replace('hsl(','').replace(')','').split(',');
 				
 				for(var i = 0; i < 3; i++){
-					this.curRgb.push(parseInt(startRgb[i]-((startRgb[i]-endRgb[i])*remainHeight / oneFieldHeight)));
+					var sHsl = startHsl[i].replace('%','');
+					var eHsl = endHsl[i].replace('%','');
+					this.curHsl.push(parseInt(sHsl-((sHsl-eHsl)*remainHeight / oneFieldHeight)));
 				}
 			}
-			this.curRgbStr = 'rgb('+this.curRgb.join(",")+')';
-			console.log(this.curRgbStr);
-	
-			this.setColorContent(this.curRgbStr);
+			this.setColorContent();
 		}
 	},
-	setColorContent:function(rgbStr){
-		document.getElementsByClassName('colorContent')[0].style.background = 'linear-gradient(135deg, rgb(255,255,255),'+rgbStr+',rgb(0,0,0))';
+	setColorContent:function(){
+		var hsl_12 = this.curHsl[0] + ',' +this.curHsl[1] + '%';
+		var startHsl = 'hsl('+hsl_12+',100%)';
+		var endHsl = 'hsl('+hsl_12+',0%)';
+		var curHsl = 'hsl('+hsl_12+','+this.curHsl[2]+'%)';
+		document.getElementsByClassName('colorContent')[0].style.background = 'linear-gradient(135deg,'+startHsl+','+curHsl+','+endHsl+')';
+	},
+	setInput:function(){
+		if(this.curHsl){
+			var hslInput = document.getElementsByClassName('hslBlock')[0].getElementsByTagName('input');
+			for (var i = 0; i < 3; i++) {
+				hslInput[i].value = this.curHsl[i];
+			}
+		}
 	},
 	//监听input框值的变化
 	changValue:function(){
-		var rgbInputs = document.getElementsByClassName('rgbBlock')[0].getElementsByTagName('input');
+		var hslInputs = document.getElementsByClassName('hslBlock')[0].getElementsByTagName('input');
 		var that = this;
-		var oldColor = that.curColor;
 		var newColor = [];
-		for(var i = 0; i < rgbInputs.length; i++){
-			rgbInputs[i].addEventListener('change',function(){
-				newColor = [].slice.call(rgbInputs).map(function(inputItem){
+		for(var i = 0; i < hslInputs.length; i++){
+			hslInputs[i].addEventListener('change',function(){
+				newColor = [].slice.call(hslInputs).map(function(inputItem){
 					return inputItem.value;
 				});
-				that.calPos(newColor);	
+				that.curHsl = newColor;
+				that.calPos();	
 			})
 		}
 		
 	},
-	calPos:function(newColor){
-		for(var r = 0; r < this.barBg.length-2; r++){
-			var startRgb = this.barBg[r];
-			var endRgb = this.barBg[r+1];
-			var count = 0;
-			for(var g = 0; g < 3; g++){
-				var diff1 = plusMinus(parseInt(startRgb[g]) - parseInt(newColor[g]));
-				var diff2 = plusMinus(parseInt(newColor[g]) - parseInt(endRgb[g]));
-				if(diff1 == diff2){
-					count++;
-				}else{
-					break;
-				}
-			}
-			/*if(count == 3){
-				return 
-			}*/
-		}
+	calPos:function(){
+		var barTop = this.curHsl[0] * 360 / this.height;
+
+		this.setDot('colorBarDot',barTop);
+
+		this.setColorContent();
+
+		var conLeft = (100 - this.curHsl[2]) * this.height / (100 * Math.sqrt(2));
+
+		this.setDot('colorConDot',conLeft,conLeft);
+
+
 	},
 	plusMinus:function(diff){
 		if(diff > 0){
