@@ -1,0 +1,122 @@
+
+.main-box{
+	width: 540px;
+	height: 340px;
+	background-size: contain;
+	margin: 200px auto;
+	font-family: "微软雅黑";
+	padding: 5px;
+	position: relative;
+	box-sizing: border-box;
+}
+
+.main-box:hover img{
+	filter: blur(1px);
+}
+.main-box:hover .top-line,.main-box:hover .bottom-line{
+	opacity: 1;
+	width:380px;
+}
+.main-box:hover .centerText .text1 span{
+	visibility: visible;
+	animation: wave 2s linear 0.5s infinite;
+}
+.main-box:hover .centerText .text2 span{
+	visibility: visible;
+	animation: change 2s linear 0.5s;
+}
+.main-box:hover .centerText{
+	top:80px;
+}
+.main-box:hover .left-line,.main-box:hover .right-line{
+	opacity: 1;
+	height: 180px;
+}
+.centerText{
+	position: absolute;
+	top: 90px;
+	left: 80px;
+	bottom: 80px;
+	right: 80px;
+	text-align: center;
+	visibility: hidden;
+	transition: top .8s;
+}
+.centerText .text1{
+	font-size: 36px;
+}
+.centerText .text1 span{
+	background: linear-gradient(to right, #BDDBF0 0%, #AA57A8 25%, #BDDBF0 50%, #AA57A8 75%, #BDDBF0 100%);
+	-webkit-background-clip: text;
+	background-size: 200% 100%;
+	color: transparent;
+}
+.centerText .text2{
+	font-size: 20px;
+}
+.centerText .text2 span{
+	color: #3579B7;
+}
+.line{
+	opacity: 0;
+}
+.top-line,.bottom-line{
+	position: absolute;
+	left:50%;
+	transform:translateX(-50%);
+	height: 4px;
+	width: 200px;
+	background-color: rgba(21,21,21,.8);
+	transition: all ease-out .6s;
+}
+.top-line{
+	top: 80px;
+}
+.bottom-line{
+	bottom: 80px;
+}
+.left-line,.right-line{
+	position: absolute;
+	top:50%;
+	transform:translateY(-50%);
+	width: 2px;
+	height: 100px;
+	background-color: rgba(21,21,21,.8);
+	transition: all ease-out .6s;
+	
+}
+.left-line{
+	left: 80px;
+}
+.right-line{
+	right: 80px;
+}
+
+
+@keyframes wave {
+	0%  {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: -100% 0;
+    }
+}
+@keyframes change{
+	0% {
+		color: #3579B7;
+	}
+	20% {
+		color: #AA57A8;
+	}
+	30% {
+		color: #3579B7;
+	}
+	40% {
+		color: #AA57A8;
+	}
+	100%{
+		color: #3579B7;
+	}
+
+}
+
