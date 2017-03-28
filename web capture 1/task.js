@@ -23,10 +23,10 @@ page.open(url, function(status) {
            		var dataArr = [];
            		content.each(function(index,item){
            			var data = {};
-           			data['title'] = $(item).find('.t').eq(0).text();
-           			data['info'] = $(item).find('.c-abstract').eq(0).text();
-           			data['link'] = $(item).find('.t').find('a').eq(0).attr('href');
-           			data['pic'] = $(item).find('.general_image_pic').find('.c-img').eq(0).attr('src');
+           			data['title'] = $(item).find('.t').eq(0).text() || '';
+           			data['info'] = $(item).find('.c-abstract').eq(0).text() || '';
+           			data['link'] = $(item).find('.t').find('a').eq(0).attr('href') || '';
+           			data['pic'] = $(item).find('.general_image_pic').find('.c-img').eq(0).attr('src') || '';
            			dataArr.push(data);
            		})
             	return dataArr    
